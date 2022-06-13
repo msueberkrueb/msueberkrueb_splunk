@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: msueberkrueb-splunk
+Version: 1.0.0
+Summary: Includes multiple utilities for Python
+Author: Mike Süberkrüb
+Author-email: Mike.Sueberkrueb@md.de
+Platform: unix
+Platform: linux
+Platform: osx
+Platform: cygwin
+Platform: win32
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Provides-Extra: testing
+License-File: LICENSE
+
+# splunk-msueberkrueb
+Utility functions for creating importable log-files for splunk
+
+
+## Installation Guide:
+
+Write:
+> git+https://github.com/msueberkrueb/splunk-msueberkrueb.git#egg=splunk-msueberkrueb
+
+into the requirements.txt.
+
+Run:
+> pip install -r requirements.txt
