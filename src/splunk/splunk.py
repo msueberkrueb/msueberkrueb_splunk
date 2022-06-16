@@ -39,12 +39,16 @@ def extract_data(data: dict, config: dict) -> dict:
             string = extracted_data[import_entry["data_destination"]]
 
             for index, delimiter in enumerate(import_entry["split"]["delimiters"]):
-                split_string = string.split(delimiter, 1)
-                extracted_data[import_entry["split"]["data_destinations"][index]] = split_string[0]
-                string = split_string[1]
+                if delimiter in string:
+                    split_string = string.split(delimiter, 1)
+                    extracted_data[import_entry["split"]["data_destinations"][index]] = split_string[0]
+                    string = split_string[1]
 
-                if len(import_entry["split"]["delimiters"]) - 1 == index:
-                    extracted_data[import_entry["split"]["data_destinations"][index + 1]] = string
+                    if len(import_entry["split"]["delimiters"]) - 1 == index:
+                        extracted_data[import_entry["split"]["data_destinations"][index + 1]] = string
+                else:
+                    # Resort to default behaviour, if the delimiter is not in the string
+                    extracted_data[import_entry["split"]["data_destinations"][index]] = string
 
     return extracted_data
 
