@@ -6,7 +6,7 @@ Author: Mike Süberkrüb
 import pytest
 import os
 
-from files.load import load_json
+from load_data.load import load_json
 
 
 @pytest.mark.parametrize("path", [
@@ -24,9 +24,9 @@ def test_load_json_type(path):
 
 
 @pytest.mark.parametrize("path", [
-    ("src/configs/InvalidName.cfg"),
-    ("src/configs/settings.txt"),
-    ("src/configs/settings")
+    ("tests/load_data/testing_data/InvalidName.cfg"),
+    ("tests/load_data/testing_data/settings.txt"),
+    ("tests/load_data/testing_data/settings")
 ])
 def test_load_json_path(path):
     """Tests if an invalid name or extension to a path file raises a FileNotFoundError"""
@@ -36,9 +36,8 @@ def test_load_json_path(path):
 
 
 @pytest.mark.parametrize("path", [
-    ("src/configs"),
-    ("src/constants"),
-    ("src/files")
+    ("tests/load_data/testing_data/directory_1"),
+    ("tests/load_data/testing_data/directory_2"),
 ])
 def test_load_json_directory(path):
     """Tests if a directory path raises a IsADirectoryError or a PermissionError"""
