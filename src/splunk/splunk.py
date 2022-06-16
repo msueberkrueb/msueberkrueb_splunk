@@ -48,7 +48,11 @@ def extract_data(data: dict, config: dict) -> dict:
                         extracted_data[import_entry["split"]["data_destinations"][index + 1]] = string
                 else:
                     # Resort to default behaviour, if the delimiter is not in the string
-                    extracted_data[import_entry["split"]["data_destinations"][index]] = string
+                    if "default" in import_entry["split"]:
+                        extracted_data[import_entry["split"]["data_destinations"][index]] = import_entry["split"][
+                            "default"]
+                    else:
+                        extracted_data[import_entry["split"]["data_destinations"][index]] = string
 
     return extracted_data
 
