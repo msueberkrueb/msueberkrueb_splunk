@@ -24,7 +24,7 @@ def extract_data(data: dict, config: dict) -> dict:
     for import_entry in config["import"]:
         # If the optional parameter data_destination is not set, set the data_location to data_destination
         if "data_destination" not in import_entry:
-            import_entry["data_destination"] = import_entry["data_location"]
+            import_entry["data_destination"] = import_entry["data_location"][-1]
 
         try:
             extracted_data[import_entry["data_destination"]] = load.load_nested(data, import_entry["data_location"])
@@ -33,6 +33,18 @@ def extract_data(data: dict, config: dict) -> dict:
         except Exception as exception:
             logging.error(f"extract_data - data: {data} \n error: {exception}")
             extracted_data[import_entry["data_destination"]] = "error"
+
+        # If the optional parameter split is set, split the string n times
+        if "split" in import_entry:
+            string = extracted_data[import_entry["data_destination"]]
+
+            for index, delimiter in enumerate(import_entry["split"]["delimiters"]):
+                split_string = string.split(delimiter, 1)
+                extracted_data[import_entry["split"]["data_destinations"][index]] = split_string[0]
+                string = split_string[1]
+
+                if len(import_entry["split"]["delimiters"]) - 1 == index:
+                    extracted_data[import_entry["split"]["data_destinations"][index + 1]] = string
 
     return extracted_data
 
