@@ -22,6 +22,10 @@ def extract_data(data: dict, config: dict) -> dict:
         raise TypeError
 
     for import_entry in config["import"]:
+        # If the optional parameter data_destination is not set, set the data_location to data_destination
+        if "data_destination" not in import_entry:
+            import_entry["data_destination"] = import_entry["data_location"]
+
         try:
             extracted_data[import_entry["data_destination"]] = load.load_nested(data, import_entry["data_location"])
         except KeyError:
